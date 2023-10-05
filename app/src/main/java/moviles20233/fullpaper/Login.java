@@ -1,12 +1,24 @@
 package moviles20233.fullpaper;
 
+import android.database.Cursor;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import moviles20233.fullpaper.data.InventarioDBHelper;
+import moviles20233.fullpaper.data.Usuario;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +26,12 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class Login extends Fragment {
+
+    private EditText idUsuario;
+    private EditText password;
+    private Button loginBoton;
+    private Button registrarBoton;
+    private InventarioDBHelper baseDatos;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,5 +78,38 @@ public class Login extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate( R.layout.fragment_login, container, false );
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        idUsuario = (EditText) getView().findViewById( R.id.idUsuario );
+        password = (EditText) getView().findViewById( R.id.password );
+        loginBoton = (Button) getView().findViewById( R.id.loginButton ) ;
+        registrarBoton = (Button) getView().findViewById( R.id.registerButton );
+
+        baseDatos = new InventarioDBHelper( getContext() );
+
+        loginBoton.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Cursor usuarioConsultado = baseDatos.getUsuarioByIdPassword( idUsuario.getText().toString(),
+                        password.getText().toString());
+                if(usuarioConsultado.moveToFirst()){
+                    Navigation.findNavController(view).navigate(R.id.menuPrincipal);
+                }else{
+                    Toast.makeText( getActivity(),"Datos incorrectos",Toast.LENGTH_LONG ).show();
+                }
+            }
+        } );
+
+        registrarBoton.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int idValue = Integer.parseInt(idUsuario.getText().toString());
+                int passwordValue = Integer.parseInt( password.getText().toString() );
+                Usuario usuarioNuevo = new Usuario(idValue,passwordValue,"Pepe");
+                baseDatos.saveUser( usuarioNuevo );
+            }
+        } );
     }
 }

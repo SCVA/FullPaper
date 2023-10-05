@@ -4,4 +4,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="textoUsuario">Enter your ID</string>
     <string name="textoPassword">Enter your password</string>
+    <string name="textoRegistrar">Register</string>
+    <string name="textoLogin">Login</string>
 </resources>
