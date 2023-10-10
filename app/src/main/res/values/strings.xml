@@ -6,4 +6,8 @@
     <string name="textoPassword">Enter your password</string>
     <string name="textoRegistrar">Register</string>
     <string name="textoLogin">Login</string>
+    <string name="textoID">0000</string>
+    <string name="textoName">XXXX</string>
+    <string name="textoShowPassword">0000</string>
+    <string name="textoIcon">Icon</string>
 </resources>
