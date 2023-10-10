@@ -1,12 +1,23 @@
 package moviles20233.fullpaper;
 
+import android.database.Cursor;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import moviles20233.fullpaper.data.InventarioDBHelper;
+import moviles20233.fullpaper.data.Usuario;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +25,12 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class MenuPrincipal extends Fragment {
+
+    private ListView listaPersonas;
+    private InventarioDBHelper baseDatos;
+
+    private Usuario usuarioBD;
+    private UsuarioAdapter usuariosAdapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,5 +77,25 @@ public class MenuPrincipal extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate( R.layout.fragment_menu_principal, container, false );
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        listaPersonas = (ListView) getView().findViewById(R.id.listaPersonas);
+        baseDatos = new InventarioDBHelper( getContext() );
+        ArrayList<Usuario> arrayUsuarios = new ArrayList<Usuario>();
+
+        Cursor listaUsuariosCursor = baseDatos.getAllUsuarios();
+        if(listaUsuariosCursor.moveToFirst()){
+            do{
+                usuarioBD = new Usuario(listaUsuariosCursor);
+                arrayUsuarios.add(usuarioBD);
+            }while (listaUsuariosCursor.moveToNext());
+        }
+
+        usuariosAdapter = new UsuarioAdapter(getActivity(),arrayUsuarios);
+
+        listaPersonas.setAdapter(usuariosAdapter);
+
     }
 }
