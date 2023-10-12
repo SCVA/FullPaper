@@ -95,7 +95,7 @@ public class Login extends Fragment {
                 Cursor usuarioConsultado = baseDatos.getUsuarioByIdPassword( idUsuario.getText().toString(),
                         password.getText().toString());
                 if(usuarioConsultado.moveToFirst()){
-                    Navigation.findNavController(view).navigate(R.id.menuPrincipal);
+                    Navigation.findNavController(view).navigate(R.id.menuPrincipalV2);
                 }else{
                     Toast.makeText( getActivity(),"Datos incorrectos",Toast.LENGTH_LONG ).show();
                 }

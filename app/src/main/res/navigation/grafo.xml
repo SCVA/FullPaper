@@ -13,10 +13,18 @@
         <action
             android:id="@+id/action_login_to_menuPrincipal"
             app:destination="@id/menuPrincipal" />
+        <action
+            android:id="@+id/action_login_to_menuPrincipalV2"
+            app:destination="@id/menuPrincipalV2" />
     </fragment>
     <fragment
         android:id="@+id/menuPrincipal"
         android:name="moviles20233.fullpaper.MenuPrincipal"
         android:label="fragment_menu_principal"
         tools:layout="@layout/fragment_menu_principal" />
+    <fragment
+        android:id="@+id/menuPrincipalV2"
+        android:name="moviles20233.fullpaper.MenuPrincipalV2"
+        android:label="fragment_menu_principal_v2"
+        tools:layout="@layout/fragment_menu_principal_v2" />
 </navigation>
