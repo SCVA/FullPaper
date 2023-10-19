@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import moviles20233.fullpaper.data.InventarioDBHelper;
+import moviles20233.fullpaper.data.Telefono;
 import moviles20233.fullpaper.data.Usuario;
 
 /**
@@ -108,7 +109,9 @@ public class Login extends Fragment {
                 int idValue = Integer.parseInt(idUsuario.getText().toString());
                 int passwordValue = Integer.parseInt( password.getText().toString() );
                 Usuario usuarioNuevo = new Usuario(idValue,passwordValue,"Pepe");
+                Telefono telefonoNuevo = new Telefono( idValue,3100000000L );
                 baseDatos.saveUser( usuarioNuevo );
+                baseDatos.saveTelefono( telefonoNuevo );
             }
         } );
     }
